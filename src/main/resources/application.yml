@@ -1,0 +1,24 @@
+server:
+  servlet:
+    context-path: /api
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb  # In-memory database
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true  # Enables H2 console access
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true  # Show SQL queries in the logs
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:/db/create.sql
+      data-locations: classpath:/db/init_data.sql
+logging:
+  level:
+    org.springframework.jdbc.datasource.init: DEBUG
