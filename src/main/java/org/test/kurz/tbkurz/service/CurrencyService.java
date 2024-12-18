@@ -37,4 +37,12 @@ public class CurrencyService {
         BigDecimal amountBD = BigDecimal.valueOf(amount);
         return amountBD.divide(exchangeRateBD, 3, RoundingMode.DOWN).doubleValue(); // 3 decimal places
     }
+
+    public CurrencyDTO createCurrency(CurrencyDTO currencyDTO) {
+        return currencyMapper.currencyToDTO(currencyRepository.save(currencyMapper.dtoToEntity(currencyDTO)));
+    }
+
+    public void delete(String code) {
+        currencyRepository.delteByCurrencyCode(code);
+    }
 }

@@ -1,11 +1,9 @@
 package org.test.kurz.tbkurz.rest;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.test.kurz.tbkurz.model.dto.CurrencyDTO;
 import org.test.kurz.tbkurz.service.CurrencyService;
 
@@ -26,6 +24,18 @@ public class CurrencyController {
     @GetMapping("/convert/{currency}/{amount}")
     public ResponseEntity<CurrencyDTO> convertCurrency(@PathVariable String currency, @PathVariable Double amount) {
         return ResponseEntity.ok(currencyService.convert(currency, amount));
+    }
+
+    @PostMapping
+    public ResponseEntity<CurrencyDTO> createCurrency(@RequestBody CurrencyDTO currencyDTO) {
+        return ResponseEntity.ok(currencyService.createCurrency(currencyDTO));
+    }
+
+    @Hidden
+    @DeleteMapping("/delete/{code}")
+    public ResponseEntity<CurrencyDTO> deleteCurrency(@PathVariable String code) {
+        currencyService.delete(code);
+        return ResponseEntity.ok().build();
     }
 
 }
